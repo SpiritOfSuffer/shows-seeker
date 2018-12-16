@@ -6,6 +6,7 @@ const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 3000;
+const API = 'https://api.myshows.me/v2/rpc/';
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -14,7 +15,7 @@ app.get('/v1/api', async (req, res) => {
     let title = req.query.title;
     let options = {
         method: 'POST',
-        url: 'https://api.myshows.me/v2/rpc/',
+        url: API,
         headers : {
             'Content-Type' : 'application/json'
         },
@@ -31,10 +32,10 @@ app.get('/v1/api', async (req, res) => {
     request(options, async (error, response, body) => {
         if(!error && response.statusCode == 200){
             console.log(body.result.length);
-            var shows = [];
-            //res.send(body);
+
+            var data = [];
             for(let i = 0; i < body.result.length; i++) {
-                shows.push(
+                data.push(
                     { 
                         id: body.result[i].id,
                         title: body.result[i].title,
@@ -47,21 +48,10 @@ app.get('/v1/api', async (req, res) => {
                         rating: body.result[i].rating,
                         image: body.result[i].image,
                         channel: body.result[i].network.title
-                     });
+                     }
+                );
             }
-
-            res.send(shows);
-            
-            
-
-            //console.log(body["result"]["titleOriginal"]);
-            
-
-            
-            //console.log(body);
-            //var data = JSON.parse(body);
-            //console.log(data);
-            //res.render('results', {data: data});
+            res.send(data);
         }
         else {
             res.send({ success: "false" });
