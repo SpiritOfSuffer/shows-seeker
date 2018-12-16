@@ -11,6 +11,10 @@ const API = 'https://api.myshows.me/v2/rpc/';
 app.use(bodyParser.json());
 app.use(cors());
 
+
+// @route   GET /v1/api
+// @desc    Get Shows By Title
+// @access  Public
 app.get('/v1/api', async (req, res) => {
     let title = req.query.title;
     let options = {
@@ -58,6 +62,35 @@ app.get('/v1/api', async (req, res) => {
         }
     });
 
+});
+
+app.get('/v1/api/top', async (req, res) => {
+    let count = req.query.count;
+    let options = {
+        method: 'POST',
+        url: API,
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        json: {
+            "jsonrpc": "2.0",
+            "method": "shows.Top",
+            "params": {
+              "mode": "all",
+              "count": `${count}`
+            },
+            "id": 1
+          }
+        };
+
+    request(options, async (error, response, body) => {
+        if(!error && response.statusCode == 200) {
+            res.send(body);
+        }
+        else {
+            res.send({ success: "false" });
+        }
+    });   
 
 
 });
