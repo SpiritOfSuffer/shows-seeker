@@ -1,12 +1,13 @@
 <template>
     <div>
       <h1> Top 300 Show from MyShows! </h1>
-      <div 
+      <div class="show-item"
           v-for="(show, index) in shows" 
           v-bind:item="show"
           v-bind:index="index" 
           v-bind:key="show.rank">
-          <p>Show: {{ show.show.title }}</p>
+          <p>{{ show.show.title }}</p>
+          <p><img v-bind:src="show.show.image" /></p>
       </div>
     </div>
 </template>
@@ -51,4 +52,19 @@ li {
 a {
   color: #42b983;
 }
+
+.show-item {
+    background: #f4f4f4;
+    padding: 10px;
+    border-bottom: 1px #ccc dotted;
+  }
+  .del {
+    background: #ff0000;
+    color: #fff;
+    border: none;
+    padding: 5px 9px;
+    border-radius: 50%;
+    cursor: pointer;
+    float: right;
+  }
 </style>
