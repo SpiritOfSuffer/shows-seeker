@@ -5,8 +5,8 @@
           v-for="(show, index) in shows" 
           v-bind:item="show"
           v-bind:index="index" 
-          v-bind:key="show.jsonrpc">
-          <p>{{ show.result[index].show.title }}</p>
+          v-bind:key="show.rank">
+          <p>Show: {{ show.show.title }}</p>
       </div>
     </div>
 </template>
@@ -25,11 +25,8 @@ export default {
   },
   async created() {
     try {
-      let data = await ShowService.getShows();
-      this.shows = JSON.parse(data);
       /* eslint-disable */
-      console.log("shows are");
-      console.log(this.shows);
+      this.shows = await ShowService.getShows();
     }
     catch(err) {
       this.error = err.message;
