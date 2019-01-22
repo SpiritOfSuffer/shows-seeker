@@ -1,5 +1,10 @@
 <template>
     <div>
+      <!--<input :value="query" placeholder="search shows...">-->
+      <form @submit="showsFilter"> 
+      <input type="text" v-model="query" placeholder="What do u want to watch?">
+      <input type="submit" value="Submit" class="btn">
+    </form>
       <h1> Top 300 Show from MyShows! </h1>
       <div class="show-item"
           v-for="(show, index) in shows" 
@@ -7,7 +12,7 @@
           v-bind:index="index" 
           v-bind:key="show.rank">
           <p>{{ show.show.title }}</p>
-          <p><img v-bind:src="show.show.image" /></p>
+          <p><a v-bind:href="'https://myshows.me/view/'+ show.show.id + '/'"><img v-bind:src="show.show.image" /></a></p>
       </div>
     </div>
 </template>
@@ -17,22 +22,30 @@ import ShowService from '../ShowService';
 
 export default {
   name: 'ShowComponent',
+  methods: {
+     async showsFilter() {
+       this.shows = [];
+       this.shows = await ShowService.getShowByQuery(this.query);
+        /* eslint-disable */
+        
+      }
+    },
   data() {
     return {
       shows: [],
       error: '',
-
+      query: '',
     }
   },
   async created() {
     try {
-      /* eslint-disable */
+      
       this.shows = await ShowService.getShows();
     }
     catch(err) {
       this.error = err.message;
     }
-  }
+  },
 }
 </script>
 

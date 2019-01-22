@@ -25,6 +25,24 @@ class ShowService {
             }
         })
     }
+    static getShowByQuery(query) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await axios.get(`http://localhost:3000/v1/api/?title=${query}`);
+                const data = res.data;
+                console.log("in query");
+
+                resolve(
+                    data.map(show => ({
+                        ...show
+                    }))
+                );  
+            }
+            catch(err) {
+                reject(err);
+            }
+        })
+    }
 }
 
 export default ShowService;
