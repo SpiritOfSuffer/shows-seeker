@@ -1,13 +1,14 @@
 <template>
     <div>
       <!--<input :value="query" placeholder="search shows...">-->
-      <form @submit="showsFilter"> 
+      <!--<form @submit="showsFilter"> 
       <input type="text" v-model="query" placeholder="What do u want to watch?">
       <input type="submit" value="Submit" class="btn">
-    </form>
+    </form>-->
+      <input type="text" v-model="query" placeholder="What do u want to watch?">
       <h1> Top 300 Show from MyShows! </h1>
       <div class="show-item"
-          v-for="(show, index) in shows" 
+          v-for="(show, index) in filteredShows" 
           v-bind:item="show"
           v-bind:index="index" 
           v-bind:key="show.rank">
@@ -46,6 +47,14 @@ export default {
       this.error = err.message;
     }
   },
+  computed: {
+    filteredShows: function() {
+      return this.shows.filter((show) =>{
+        return show.show.title.match(this.query);
+        //return this.query.exec(show.show.title);
+      });
+    }
+  }
 }
 </script>
 
