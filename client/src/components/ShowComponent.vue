@@ -5,8 +5,8 @@
       <input type="text" v-model="query" placeholder="What do u want to watch?">
       <input type="submit" value="Submit" class="btn">
     </form>-->
-      <input type="text" v-model="query" placeholder="What do u want to watch?">
-      <h1> Top 300 Show from MyShows! </h1>
+      <h1> Top 300 Shows from MyShows! </h1>
+      <input type="text" id="query" class="query-text" v-model="query" placeholder="What do u want to watch?">
       <div class="show-item"
           v-for="(show, index) in filteredShows" 
           v-bind:item="show"
@@ -87,5 +87,21 @@ a {
     border-radius: 50%;
     cursor: pointer;
     float: right;
+    
   }
+
+  #query {
+    background: white; outline: none; border: 1 none;
+    font: inherit; text-align: center; color: hsl(120, 40%, 30%);
+    display: block; width: 100%; padding: 0 10px;
+    box-sizing: border-box;
+    padding-top: 1%;
+    padding-bottom: 1%;
+   
+  }
+  .query-text {
+	/*each face will be 40px high*/
+	line-height: 40px; height: 40px;
+	background: hsl(120, 40%, 20%);
+}
 </style>
