@@ -50,8 +50,7 @@ export default {
   computed: {
     filteredShows: function() {
       return this.shows.filter((show) =>{
-        return show.show.title.match(this.query);
-        //return this.query.exec(show.show.title);
+        return show.show.title.match(new RegExp(this.query, "i"));
       });
     }
   }
