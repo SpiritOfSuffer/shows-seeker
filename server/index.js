@@ -240,10 +240,19 @@ app.get('/v1/api/users', async (req, res) => {
     res.send(await users.find().sort({createdAt: -1}).toArray());
 });
 
-app.post('/v1/api/users', async (req, res) => {
+app.post('/v1/api/users/register', async (req, res) => {
     const users = await getUsers();
     await createUser(users, req.body.login, req.body.email, req.body.password);
     res.json({success: true}); 
+});
+
+app.get('/v1/api/users/login', async (req, res) => {
+    const users = await getUsers();
+    const user = await findOneByLoginAndPassword(users, req.body.login, req.body.password);
+    if(!user) {
+        res.json({success: false});
+    }
+    res.json({success: true});
 });
 
 
@@ -262,6 +271,10 @@ async function createUser(users, login, email, password) {
         createdAt: new Date(),
         password: password
     });
+}
+
+async function findOneByLoginAndPassword(users, login, password) {
+    return await users.findOne({login: login, password: password});
 }
 
 app.listen(port, () => { 
