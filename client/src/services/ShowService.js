@@ -10,15 +10,12 @@ class ShowService {
                 const res = await axios.get(url);
                 const data = res.data;
                 /* eslint-disable */
-                console.log("data from service!");
                 console.log(data);
-                //console.log(data.result);
                 resolve(
                     data.result.map(show => ({
                         ...show
                     }))
                 );       
-                console.log("after mapping");
             }
             catch(err) {
                 reject(err);

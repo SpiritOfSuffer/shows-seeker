@@ -19,14 +19,14 @@
 </template>
 
 <script>
-import ShowService from '../ShowService';
+import ShowService from '../services/ShowService';
 
 export default {
   name: 'ShowComponent',
   methods: {
      async showsFilter() {
        this.shows = [];
-       this.shows = await ShowService.getShowByQuery(this.query);
+       //this.shows = await ShowService.getShowByQuery(this.query);
         /* eslint-disable */
         
       }
@@ -93,15 +93,22 @@ a {
   #query {
     background: white; outline: none; border: 1 none;
     font: inherit; text-align: center; color: hsl(120, 40%, 30%);
-    display: block; width: 100%; padding: 0 10px;
     box-sizing: border-box;
     padding-top: 1%;
     padding-bottom: 1%;
+    margin-top: 1%;
+    margin-right: auto;
+    margin-left: auto;
+    width: 25%;
+
    
   }
   .query-text {
-	/*each face will be 40px high*/
 	line-height: 40px; height: 40px;
 	background: hsl(120, 40%, 20%);
+}
+p {
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
 }
 </style>
