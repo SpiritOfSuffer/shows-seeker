@@ -2,6 +2,7 @@ const express = require('express');
 const request = require('request');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const mongodb = require("mongodb");
 
 
 const app = express();
@@ -233,6 +234,35 @@ async function getGenreId(genre){
     }); 
 }
 
+app.get('/v1/api/users', async (req, res) => {
+    const users = await getUsers();
+    console.log(users);
+    res.send(await users.find().sort({createdAt: -1}).toArray());
+});
+
+app.post('/v1/api/users', async (req, res) => {
+    const users = await getUsers();
+    await createUser(users, req.body.login, req.body.email, req.body.password);
+    res.json({success: true}); 
+});
+
+
+async function getUsers() {
+    const client = await mongodb.MongoClient
+    .connect('mongodb://root:root56288265@ds147420.mlab.com:47420/show-seeker',
+     {useNewUrlParser: true});
+
+     return client.db('show-seeker').collection('users');
+}
+
+async function createUser(users, login, email, password) {
+    await users.insertOne({
+        login: login,
+        email: email,
+        createdAt: new Date(),
+        password: password
+    });
+}
 
 app.listen(port, () => { 
     console.log(`Server is up on ${port}`);
