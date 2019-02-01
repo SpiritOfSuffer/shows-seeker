@@ -1,17 +1,20 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
+    <LoginForm/>
     <ShowComponent msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
 <script>
 import ShowComponent from './components/ShowComponent.vue'
+import LoginForm from './components/LoginForm.vue'
 
 export default {
   name: 'app',
   components: {
-    ShowComponent
+    ShowComponent,
+    LoginForm
   }
 }
 </script>

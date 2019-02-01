@@ -246,11 +246,11 @@ app.post('/v1/api/users/register', async (req, res) => {
     res.json({success: true}); 
 });
 
-app.get('/v1/api/users/login', async (req, res) => {
+app.post('/v1/api/users/login', async (req, res) => {
     const users = await getUsers();
     const user = await findOneByLoginAndPassword(users, req.body.login, req.body.password);
     if(!user) {
-        res.json({success: false});
+        res.status(400).json({success: false});
     }
     res.json({success: true});
 });
