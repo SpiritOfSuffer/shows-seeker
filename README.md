@@ -1,5 +1,5 @@
 # shows-seeker
-Shows searcher based on myshows API, node.js, express on backend, and vue/axios on frontend
+Shows searcher based on myshows API, node.js, mongodb, express on backend, and vue/axios on frontend
 
 ## Project setup
 ```
